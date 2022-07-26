@@ -1,0 +1,47 @@
+repositories {
+    mavenCentral()
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.1")
+    }
+}
+ext{
+    junitVersion = "5.8.2"
+    serenityVersion = "2.3.4"
+    loggerVersion = "1.7.7"
+    cucumberVersion = "3.0.5"
+    assertjVersion = "1.7.0"
+    gsonVersion = "2.8.5"
+    lombokVersion = "1.18.22"
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+dependencies {
+    testImplementation("net.serenity-bdd:serenity-core:$serenityVersion")
+    testImplementation ("net.serenity-bdd:serenity-junit:$serenityVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.assertj:assertj-core:$assertjVersion")
+    testImplementation("org.slf4j:slf4j-simple:$loggerVersion")
+    implementation ("net.serenity-bdd:serenity-core:$serenityVersion")
+    implementation ("net.serenity-bdd:serenity-junit:$serenityVersion")
+    implementation "net.serenity-bdd:serenity-cucumber:$cucumberVersion"
+    implementation ("net.serenity-bdd:serenity-screenplay:$serenityVersion")
+    implementation ("net.serenity-bdd:serenity-screenplay-rest:$serenityVersion")
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+gradle.startParameter.continueOnFailure = true
